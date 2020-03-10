@@ -1,0 +1,34 @@
+CREATE TABLE usuario_2seme(
+		id_usu INT PRIMARY KEY IDENTITY,
+		nome_usu VARCHAR(45),
+		CPF VARCHAR(11),
+		endereco VARCHAR(50),
+		email VARCHAR(45),
+		senha VARCHAR(20)
+		)
+
+	CREATE TABLE hardware (
+		id_hard INT PRIMARY KEY IDENTITY,
+		usu_id INT,
+		modelo_hard VARCHAR(20),
+		RAM DECIMAL(18,2),
+		CPU DECIMAL(18,2),
+		Disco_Rigido DECIMAL(18,2)
+		FOREIGN KEY (usu_id) REFERENCES usuario_2seme (id_usu)
+		)
+
+
+	CREATE TABLE dados_hardware(
+		id_dado INT PRIMARY KEY IDENTITY,
+		hard_id INT,
+		RAM_recebido DECIMAL(18,2),
+		CPU_recebido DECIMAL(18,2),
+		Disco_recebido DECIMAL(18,2),
+		FOREIGN KEY (hard_id) REFERENCES hardware (id_hard)
+	)
+
+	SELECT * FROM usuario_2seme  usu
+	INNER JOIN hardware hard 
+	on hard.usu_id = usu.id_usu
+	INNER JOIN dados_hardware dadosH
+	on dadosH.hard_id = hard.id_hard
